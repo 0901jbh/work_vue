@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>검색 가격 : <input type="number" v-model.number.lazy="searchPrice" /></div>
+      <table>
+        <thead>
+          <tr>
+            <td>번호</td>
+            <td>상품코드</td>
+            <td>상품명</td>
+            <td>가격</td>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-if="products.length>0">
+            <tr v-for="(product,index) in products" :key="product.no">
+              <td>{{index+1}}</td>
+              <td>{{product.no}}</td>
+              <td>{{product.name}}</td>
+              <td>{{product.price}}</td>
+            </tr>
+          </template>
+          <tr v-else>
+            <td colspan="4">부합하는 상품이 없습니다.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          searchPrice: 0,
+          orgProducts: [
+            { no: 11, name: "노트북", price: 2000000 },
+            { no: 22, name: "태블릿", price: 3000000 },
+            { no: 33, name: "공기청정기", price: 4000000 },
+          ],
+        },
+        computed: {
+          products() {
+            return this.orgProducts.filter((item) => item.price >= this.searchPrice);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

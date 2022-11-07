@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Person(name, age) {
+        this.name = name;
+        this.age = age;
+        console.log(`Person(name,age) : ${this.age}`);
+      }
+
+      function hello() {
+        console.log(`hello : ${this}`);
+      }
+      function goodbye() {
+        console.log(`hello : ${this}`);
+      }
+
+      let greeting = {
+        hello,
+        goodbye: () => console.log(`goodbye : ${this}`),
+      };
+      hello();
+      greeting.hello();
+      let p1 = new Person("김재환", 27);
+      Person("박보검", 30);
+      console.log(window.age);
+      console.log(goodbye);
+      console.log(greeting.goodbye);
+      console.log("======");
+      function a() {
+        let aa = 10;
+        function b() {
+          let bb = 20;
+          console.log(aa, bb, this);
+        }
+        b();
+        return b;
+      }
+      a();
+    </script>
+  </body>
+</html>

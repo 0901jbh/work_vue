@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <input type="number" name="amount" v-model.number.lazy="amount" />
+      <div>총 가격(*) : {{amount*price}}</div>
+      <div>총 가격(+) : {{amount+price}}</div>
+      <div>
+        <template v-if="amount>5">
+          <h2>VIP</h2>
+          <h2>수량이 많아요</h2>
+        </template>
+        <h2 v-else-if="amount>0">수량이 적어요</h2>
+        <h2 v-else>수량이 올바르지 않아요</h2>
+      </div>
+      <img src="../images/a.png" v-if="amount <=0" />
+      <img src="../images/a.png" v-show="amount <=0" />
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          amount: 0,
+          price: 10000,
+        },
+      });
+    </script>
+  </body>
+</html>

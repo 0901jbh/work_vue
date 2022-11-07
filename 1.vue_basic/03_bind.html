@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+      .mark {
+        background-color: aquamarine;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-bind:value="message" />
+      <input type="text" :value="message" />
+      <button v-bind:disabled="message.length <= 5">버튼</button>
+      <br />
+      <img :src="imgSrc" />
+      <div class="{mark:isMark}">테스트</div>
+    </div>
+  </body>
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        message: "hello vueeeeeeeeee",
+        isMark: false,
+        imgSrc: "../images/a.png",
+      },
+    });
+  </script>
+</html>

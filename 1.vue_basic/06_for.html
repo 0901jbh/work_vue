@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <table>
+        <thead>
+          <tr>
+            <td>번호</td>
+            <td>상품코드</td>
+            <td>상품명</td>
+            <td>가격</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(product,index) in products" :key="product.no">
+            <td>{{index+1}}</td>
+            <td>{{product.no}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          products: [
+            { no: 11, name: "노트북", price: 2000000 },
+            { no: 22, name: "태블릿", price: 3000000 },
+            { no: 33, name: "공기청정기", price: 4000000 },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>
