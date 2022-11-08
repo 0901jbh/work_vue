@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>부모컴포넌트1</h2>
+      <greeting></greeting>
+      <greeting name="KJB"></greeting>
+    </div>
+
+    <template id="GreetingTemplate">
+      <h1>hello {{name}}</h1>
+    </template>
+    <script>
+      let Greeting = {
+        template: "#GreetingTemplate",
+        props: {
+          name: {
+            type: String,
+            required: false,
+            default: "싸피",
+          },
+        },
+      };
+
+      new Vue({
+        el: "#app",
+        data() {
+          return {
+            name: "칠전팔기",
+          };
+        },
+        components: {
+          Greeting,
+        },
+      });
+    </script>
+  </body>
+</html>
