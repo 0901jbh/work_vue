@@ -68,14 +68,14 @@
               <th></th>
             </tr>
           </thead>
-          <template v-if="dept.emps.length!=0">
+          <template v-if="dept.emps != null && dept.emps.length > 0">
             <tbody>
               <tr v-for="(emp,index) in dept.emps" :key="emp.empno">
                 <td>{{emp.empno}}</td>
                 <td>{{emp.ename}}</td>
                 <td>{{emp.job}}</td>
                 <td>{{emp.sal}}</td>
-                <td><input type="checkbox" name="empno" value="`${emp.empno}`" /></td>
+                <td><input type="checkbox" name="empno" :value="emp.empno" /></td>
               </tr>
             </tbody>
 
