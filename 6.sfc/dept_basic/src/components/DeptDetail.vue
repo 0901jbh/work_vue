@@ -115,7 +115,6 @@ export default {
         .put(`http://localhost:8080/api/depts/${this.deptno}`, {
           ...this.dept,
         })
-
         .then((response) => {
           this.dept = response.data;
           if (response.status == 200) this.$emit("modify-dept");
