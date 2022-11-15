@@ -1,58 +1,43 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import DeptView from "@/views/DeptView";
-import EmpView from "@/views/EmpView";
-// this.$router, this.$route 접근 가능 (기본 설정)
-Vue.use(VueRouter);
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import DeptView from '@/views/DeptView.vue'
+import EmpView from '@/views/EmpView.vue'
 
-//주어진 경로에 매핑되는 화면으로 전환 : router
-//주어진 경로에 매핑되는 화면 정보 : route
+Vue.use(VueRouter)
+
 const routes = [
   {
-    path: "/",
-    redirect: "/dept",
+    path: '/',
+    redirect: '/dept'
   },
-
   {
-    path: "/dept",
-    name: "dept", // path 대신 별칭으로 쓰는 것
+    path: '/dept',
+    name: 'dept',
     component: DeptView,
+
     children: [
       {
-        // children은 부모 하위에 만들어진다. /가 자동으로 붙는다.
-        path: "regForm",
-        component: () => import("@/components/DeptRegister"),
+        path: 'regForm' ,
+        component:() => import('@/components/DeptForm')
       },
       {
-        // pathvariable 같은 느낌(동적 라우팅)
-        path: "detail/:deptno", // this.$route.params.deptno로 뽑아낼 수 있음. -> props가 된다면?
-        props: true,
-        component: () => import("@/components/DeptDetail"),
+        path: 'detail/:deptno',
+        props:true,
+        component:() => import('@/components/DeptDetail')
       },
-    ],
+    ]
   },
-  // 실제 라우팅 처리가 될 때 불러오는 방식
   {
-    path: "/emp",
-    name: "emp",
-    component: EmpView,
-    children: [
-      {
-        path: "regForm",
-        component: () => import("@/components/EmpRegister"),
-      },
-      {
-        path: "detail/:empno",
-        component: () => import("@/components/EmpDetail"),
-      },
-    ],
+    path: '/emp',
+    name: 'emp',
+    component: EmpView
   },
-];
+]
 
 const router = new VueRouter({
-  mode: "history", // hashback mode #이 붙어서 사용자에게 불편을 줄 수 있다.
+  mode: 'history',
   base: process.env.BASE_URL,
-  routes, // 라우트 정보 주기 (es6)
-});
+  routes
+})
 
-export default router;
+export default router

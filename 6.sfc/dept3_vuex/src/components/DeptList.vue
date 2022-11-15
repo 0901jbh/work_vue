@@ -1,82 +1,65 @@
 <template>
   <div class="container">
     <div class="row mt-3">
-      <h2 class="bg-info text-light text-center">부서 목록</h2>
+      <h2 class="bg-primary text-light text-center">부서 목록</h2>
     </div>
     <div class="row">
       <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <th>순번</th>
+            <th>번호</th>
             <th>부서번호</th>
             <th>부서이름</th>
-            <th>부서지역</th>
+            <th>위치</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-if="depts.length == 0">
-            <td class="text-center" colspan="4">등록된 부서정보가 없습니다.</td>
+          <tr v-if="!depts || depts == null || depts.length == 0">
+            <td colspan="4">등록된 사용자 정보가 없습니다.</td>
           </tr>
           <template v-else>
-            <tr v-for="(dept, index) in depts" :key="dept.deptno" @click="sendData(dept.deptno)">
+            <tr v-for="(dept, index) in depts" :key="dept.deptno" @click="pickDept(dept.deptno)">
               <td>{{ index + 1 }}</td>
               <td>{{ dept.deptno }}</td>
-              <td>
-                <a>{{ dept.dname }}</a>
-              </td>
+              <td>{{ dept.dname }}</td>
               <td>{{ dept.loc }}</td>
             </tr>
           </template>
-          <input class="btn btn-primary" type="button" value="등록" @click="changeForm" />
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">
+              <div class="btn btn-success text-center" @click="changeForm">등록</div>
+            </td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
 </template>
 
 <script>
-// import axios from "axios";
-// import restApi from "@/util/http-common";
-import Constant from "@/common/Constant";
+import Constant from "@/common/Constant.js";
+import { mapGetters, mapActions } from "vuex";
 export default {
-  props: {
-    flag: {
-      type: Boolean,
-      required: false,
-    },
-  },
-  // data() {
-  //   return {
-  //     depts: [],
-  //   };
+  // computed: {
+  //   depts() {
+  //     //return this.$store.state.depts;
+  //     return this.$store.getters.depts;
+  //   },
   // },
   computed: {
-    depts() {
-      return this.$store.state.depts;
-    },
+    ...mapGetters(["depts"]),
   },
+
   methods: {
-    getDepts() {
-      // axios("https://jsonplaceholder.typicode.com/users").then((response) => {
-      //   // 익명 함수면? this는 window가 된다.
-      //   this.users = response.data;
-      // });
-      // 구조 분해 할당을 쓰면 원하는 데이터만 가져올 수 있다.
-      // axios("http://localhost:8080/api/depts").then(({ data }) => {
-      //   this.depts = data;
-      // });
-      // restApi("/api/depts").then(({ data }) => {
-      //   this.depts = data;
-      // });
-
-      //Store's Action을 호출해야함.
-      this.$store.dispatch(Constant.GET_DEPTS);
+    // getDepts() {
+    //   this.$store.dispatch(Constant.GET_DEPTS);
+    // },
+    ...mapActions([Constant.GET_DEPTS]),
+    pickDept(deptno) {
+      this.$router.push(`/dept/detail/${deptno}`);
     },
-    sendData(no) {
-      // this.$emit("deptSelect", no);
-      this.$router.push(`/dept/detail/${no}`);
-    },
-
     changeForm() {
       this.$router.push("/dept/regForm");
     },
@@ -84,15 +67,11 @@ export default {
   created() {
     this.getDepts();
   },
-
   watch: {
-    flag() {
-      this.getDepts();
-    },
     $route(to) {
-      console.log("DeptList watch route...");
-      // this.getDepts();
+      console.log("DeptList watch route");
       if (to.path == "/dept") {
+        console.log("get Depts...");
         this.getDepts();
       }
     },
